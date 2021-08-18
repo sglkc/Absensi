@@ -16,7 +16,7 @@ var themeNum = 0;
 var sortArray = [true, false, false];
 
 // AJAX
-function getData(){
+function refreshData(){
 	var div = document.getElementById("list");
 	var xml = new XMLHttpRequest();
 
@@ -137,16 +137,16 @@ function filterRow(array) {
 
 // Toggle tema
 function toggleTheme() {
-	var body = document.getElementsByTagName("body")[0];
+	themeNum = themeNum ? 0 : 1;
+
+	var html = document.getElementsByTagName("html")[0];
 	var form = document.getElementById("form");
-	var input = document
 	var list = document.getElementById("list");
 	var button = document.getElementsByTagName("button");
 	var p = document.getElementsByTagName("p");
 
-	body.style.background = theme[0][themeNum];
-	body.style.backgroundAttachment = "fixed";
-	body.style.color = theme[1][themeNum];
+	html.style.background = theme[0][themeNum];
+	html.style.color = theme[1][themeNum];
 	form.style.backgroundColor = theme[2][themeNum];
 	list.style.backgroundColor = theme[3][themeNum];
 	// TODO: table
@@ -157,8 +157,6 @@ function toggleTheme() {
 	for (let i = 0; i < p.length; i++) {
 		p[i].style.color = theme[7][themeNum];
 	}
-
-	themeNum = themeNum>theme.length ? 0 : themeNum+1
 }
 
 // Hapus TKJ & RPL dikelas 13
@@ -176,6 +174,3 @@ function checkClVal() {
 		options[i].hidden = is13;
 	}
 }
-
-// Ambil data.
-getData();

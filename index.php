@@ -6,8 +6,12 @@
 	<title>Absensi</title>
 </head>
 <body>
-	<h1>Absensi <button onclick="toggleTheme()">Theme</button></h1>
-	<form method="POST" action="index.php">
+	<h1>
+		Absensi
+		<button onclick="toggleTheme()">Theme</button>
+	</h1>
+	<form method="POST" action="index.php"
+		onsubmit="setTimeout(function () { window.location.reload(); }, 10)">
 		<div id="form">
 			<div id="form-nama">
 				<label for="nama">Nama: </label>
@@ -39,11 +43,14 @@
 				</select>
 			</div>
 			<div id="form-button">
-				<label for="absen"></label>
+				<label for="absen">
 				<input type="submit" value="Absen" id="absen">
 			</div>
 		</div>
-		<div id="list"></div><br>
+		<div id="list">
+			<?php include 'db.php' ?>
+		</div>
+		<br>
 	</form>
 	<footer>
 		<div>
@@ -84,7 +91,7 @@
 include 'mysql.php';
 
 if (isset($_POST['nama'])) {
-	if ($_POST['nama'] == $adminName) {
+	if ($_POST['nama'] == $adminPassword) {
 		if (isset($_POST['reset'])) {
 		
 			$delete = "DELETE FROM $dbTable";
@@ -107,10 +114,11 @@ if (isset($_POST['nama'])) {
 		
 		}
 	} else {
-		
-		$nama = $_POST['nama'];
-		$kelas = $_POST['kelas'];
-		$jurusan = $_POST['jurusan'];
+
+		// Escape input sebelum dimasukkan database
+		$nama = $mysqli->real_escape_string($_POST['nama']);
+		$kelas = $mysqli->real_escape_string($_POST['kelas']);
+		$jurusan = $mysqli->real_escape_string($_POST['jurusan']);
 		$time = time() + 60 * 60 * 6;
 		$insert = "INSERT INTO $dbTable VALUES (NULL, '$time', '$nama', '$kelas', '$jurusan')";
 		$mysqli->query($insert);

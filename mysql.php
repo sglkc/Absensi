@@ -1,6 +1,6 @@
 <?php
 // Nama untuk hapus data
-$adminName = "password";
+$adminPassword = "password";
 
 // Database
 $user = "root";
@@ -10,5 +10,5 @@ $database = "absensi"; // Nama database
 $dbTable = "siswa"; // Nama tabel
 $mysqli = new mysqli($server, $user, $pass, $database);
 
-if(!$mysqli) die("Fail:<br>" . mysqli_connect_error());
+if (!$mysqli) die("Error:<br>" . mysqli_connect_error());
 ?>
